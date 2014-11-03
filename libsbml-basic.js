@@ -1,5 +1,6 @@
 var reader;
 var doc;
+var doneLoading = false;
 
 Module["noExitRuntime"] = true
 
@@ -81,12 +82,8 @@ var loadsbml = function () {
 
   reader = new libsbml.SBMLReader();
   doc = reader.readSBMLFromString(sbmlstr);
-//   console.log('read SBML');
+  doneLoading = true;
 };
-//
-// function helloWorld() {
-//     return "Hello world!";
-// }
 
 describe("libsbml.js basic tests", function() {
     it("loads raw SBML", function() {
@@ -94,7 +91,9 @@ describe("libsbml.js basic tests", function() {
         libsbml.onload(loadsbml);
       });
 
-      waits(1000);
+      waitsFor(function() {
+        return doneLoading;
+      }, 'the model to load', 10000);
 
       runs(function() {
         // read with no errors
@@ -123,19 +122,6 @@ describe("libsbml.js basic tests", function() {
         expect(model.reactions[2].getId()).toEqual('_J2');
         expect(model.reactions[2].getNumReactants()).toEqual(1);
         expect(model.reactions[2].getReactant(0).getSpecies()).toEqual('S2');
-
-//         for(var i=0; i<model.getNumReactions(); i++) {
-//           var rxn = model.getReaction(i);
-//           console.log('  ' + rxn.getId());
-//           if(rxn.getNumReactants() > 0) {
-//             console.log('  Reactants:');
-//             for(var j=0; j<rxn.getNumReactants(); j++) {
-//               var rref = rxn.getReactant();
-//               console.log('    ' + rref.getSpecies());
-//             }
-//           }
-//         }
-//         expect(helloWorld()).toEqual("Hello world!");
       });
     });
 });
