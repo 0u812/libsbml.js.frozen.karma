@@ -1,6 +1,6 @@
 var reader;
 var doc;
-var doneLoading = false;
+var doneLoadingEmbeddedModel = false;
 
 Module["noExitRuntime"] = true
 
@@ -82,17 +82,17 @@ var loadsbml = function () {
 
   reader = new libsbml.SBMLReader();
   doc = reader.readSBMLFromString(sbmlstr);
-  doneLoading = true;
+  doneLoadingEmbeddedModel = true;
 };
 
-describe("libsbml.js basic tests", function() {
+describe("Basic API tests for libsbml.js", function() {
     it("loads raw SBML", function() {
       runs(function () {
         libsbml.onload(loadsbml);
       });
 
       waitsFor(function() {
-        return doneLoading;
+        return doneLoadingEmbeddedModel;
       }, 'the model to load', 10000);
 
       runs(function() {
