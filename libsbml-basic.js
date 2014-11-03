@@ -85,6 +85,26 @@ var loadsbml = function () {
   doneLoadingEmbeddedModel = true;
 };
 
+// console.log('begin xmlhttp req section');
+// var request = new XMLHttpRequest();
+// request.open('get', 'decayModel.xml', true);
+// request.responseType = 'text';
+// request.onload = function(e) {
+//   console.log('async loaded model');
+// //         if(xhr.status==200 || xhr.status==0 && xhr.response
+// };
+// request.onerror = function(e) {
+//   console.log('problem');
+// };
+// request.onprogress = function(e) {
+//   if(e.lengthComputable) {
+//     console.log(String(e.loaded));
+//   }
+// };
+// console.log('send req');
+// request.send(null);
+// console.log('post send req');
+
 describe("Basic API tests for libsbml.js", function() {
     it("loads raw SBML", function() {
       runs(function () {
@@ -123,5 +143,46 @@ describe("Basic API tests for libsbml.js", function() {
         expect(model.reactions[2].getNumReactants()).toEqual(1);
         expect(model.reactions[2].getReactant(0).getSpecies()).toEqual('S2');
       });
-    });
+      });
+});
+
+// function loadmodel() {
+//   console.log('1begin xmlhttp req section');
+//   var request = new XMLHttpRequest();
+//   request.open('get', 'decayModel.xml', true);
+//   request.responseType = 'text';
+//   request.onload = function(e) {
+//     console.log('1async loaded model');
+//     console.log('1status ' + String(request.status));
+//     if((request.status==200 || request.status==0) && request.response) {
+//       console.log(request.response);
+//     }
+//   };
+//   request.onerror = function(e) {
+//     console.log('1problem');
+//   };
+//   request.onprogress = function(e) {
+//     if(e.lengthComputable) {
+//       console.log(String(e.loaded));
+//     }
+//   };
+//   console.log('1send req');
+//   request.send(null);
+//   console.log('1post send req');
+// }
+
+describe("Decay model test", function() {
+//   loadmodel();
+  libsbml.load('models/decayModel.xml', function(result) {
+//     console.log(result.text);
+    console.log('got results');
+    var doc = result.doc;
+    console.log('num errors: ' + String(doc.getNumErrors()));
+    var model = doc.getModel();
+    console.log('num rxns: ' + String(model.getNumReactions()));
+  });
+  it("loads raw SBML", function() {
+
+    waits(4000);
+  });
 });
