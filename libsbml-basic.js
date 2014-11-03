@@ -1,6 +1,7 @@
 var reader;
 var doc;
 var doneLoadingEmbeddedModel = false;
+var ready = false;
 
 Module["noExitRuntime"] = true
 
@@ -106,83 +107,79 @@ var loadsbml = function () {
 // console.log('post send req');
 
 describe("Basic API tests for libsbml.js", function() {
-    it("loads raw SBML", function() {
-      runs(function () {
-        libsbml.onload(loadsbml);
-      });
+  it("loads raw SBML", function() {
+    runs(function () {
+      libsbml.onload(loadsbml);
+    });
 
-      waitsFor(function() {
-        return doneLoadingEmbeddedModel;
-      }, 'the model to load', 10000);
+    waitsFor(function() {
+      return doneLoadingEmbeddedModel;
+    }, 'the model to load', 10000);
 
-      runs(function() {
-        // read with no errors
-        expect(doc.getNumErrors()).toEqual(0);
+    runs(function() {
+      // read with no errors
+      expect(doc.getNumErrors()).toEqual(0);
 
-        var model = doc.getModel();
+      var model = doc.getModel();
 
-        // three reactions in model
-        expect(model.getNumReactions()).toEqual(3);
-        expect(model.getReaction(0).getId()).toEqual('_J0');
-        expect(model.getReaction(0).getNumReactants()).toEqual(0);
-        expect(model.getReaction(1).getId()).toEqual('_J1');
-        expect(model.getReaction(1).getNumReactants()).toEqual(1);
-        expect(model.getReaction(1).getReactant(0).getSpecies()).toEqual('S1');
-        expect(model.getReaction(2).getId()).toEqual('_J2');
-        expect(model.getReaction(2).getNumReactants()).toEqual(1);
-        expect(model.getReaction(2).getReactant(0).getSpecies()).toEqual('S2');
+      // three reactions in model
+      expect(model.getNumReactions()).toEqual(3);
+      expect(model.getReaction(0).getId()).toEqual('_J0');
+      expect(model.getReaction(0).getNumReactants()).toEqual(0);
+      expect(model.getReaction(1).getId()).toEqual('_J1');
+      expect(model.getReaction(1).getNumReactants()).toEqual(1);
+      expect(model.getReaction(1).getReactant(0).getSpecies()).toEqual('S1');
+      expect(model.getReaction(2).getId()).toEqual('_J2');
+      expect(model.getReaction(2).getNumReactants()).toEqual(1);
+      expect(model.getReaction(2).getReactant(0).getSpecies()).toEqual('S2');
 
-        // consistency check
-        expect(model.reactions.length).toEqual(3);
-        expect(model.reactions[0].getId()).toEqual('_J0');
-        expect(model.reactions[0].getNumReactants()).toEqual(0);
-        expect(model.reactions[1].getId()).toEqual('_J1');
-        expect(model.reactions[1].getNumReactants()).toEqual(1);
-        expect(model.reactions[1].getReactant(0).getSpecies()).toEqual('S1');
-        expect(model.reactions[2].getId()).toEqual('_J2');
-        expect(model.reactions[2].getNumReactants()).toEqual(1);
-        expect(model.reactions[2].getReactant(0).getSpecies()).toEqual('S2');
-      });
-      });
+      // consistency check
+      expect(model.reactions.length).toEqual(3);
+      expect(model.reactions[0].getId()).toEqual('_J0');
+      expect(model.reactions[0].getNumReactants()).toEqual(0);
+      expect(model.reactions[1].getId()).toEqual('_J1');
+      expect(model.reactions[1].getNumReactants()).toEqual(1);
+      expect(model.reactions[1].getReactant(0).getSpecies()).toEqual('S1');
+      expect(model.reactions[2].getId()).toEqual('_J2');
+      expect(model.reactions[2].getNumReactants()).toEqual(1);
+      expect(model.reactions[2].getReactant(0).getSpecies()).toEqual('S2');
+    });
+  });
+
+  it('cleans up resources', function() {
+    libsbml.destroy(doc);
+    libsbml.destroy(reader);
+  });
+
 });
 
-// function loadmodel() {
-//   console.log('1begin xmlhttp req section');
-//   var request = new XMLHttpRequest();
-//   request.open('get', 'decayModel.xml', true);
-//   request.responseType = 'text';
-//   request.onload = function(e) {
-//     console.log('1async loaded model');
-//     console.log('1status ' + String(request.status));
-//     if((request.status==200 || request.status==0) && request.response) {
-//       console.log(request.response);
-//     }
-//   };
-//   request.onerror = function(e) {
-//     console.log('1problem');
-//   };
-//   request.onprogress = function(e) {
-//     if(e.lengthComputable) {
-//       console.log(String(e.loaded));
-//     }
-//   };
-//   console.log('1send req');
-//   request.send(null);
-//   console.log('1post send req');
-// }
-
 describe("Decay model test", function() {
-//   loadmodel();
+  ready = false;
+  // load the model asynchronously
   libsbml.load('models/decayModel.xml', function(result) {
-//     console.log(result.text);
-    console.log('got results');
-    var doc = result.doc;
-    console.log('num errors: ' + String(doc.getNumErrors()));
-    var model = doc.getModel();
-    console.log('num rxns: ' + String(model.getNumReactions()));
+    doc = result.doc;
+    ready = true;
   });
-  it("loads raw SBML", function() {
 
-    waits(4000);
+  it("loads raw SBML", function() {
+    waitsFor(function() {
+        return ready;
+      }, 'the model to load', 10000);
+
+    runs( function() {
+      // read with no errors
+      expect(doc.getNumErrors()).toEqual(0);
+
+      var model = doc.getModel();
+      expect(model.getNumReactions()).toEqual(1);
+
+      expect(model.reactions[0].getId()).toEqual('J0');
+
+      expect(model.reactions[0].getKineticLaw().getMath().getType()).toBe(libsbml.AST_TIMES);
+    });
+  });
+
+  it('cleans up resources', function() {
+    libsbml.destroy(doc);
   });
 });
