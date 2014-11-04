@@ -173,9 +173,28 @@ describe("Decay model test", function() {
       var model = doc.getModel();
       expect(model.getNumReactions()).toEqual(1);
 
+      // test reaction id
       expect(model.reactions[0].getId()).toEqual('J0');
 
-      expect(model.reactions[0].getKineticLaw().getMath().getType()).toBe(libsbml.AST_TIMES);
+      // test AST nodes with API
+      var root = model.reactions[0].getKineticLaw().getMath();
+      expect(root.getType()).toBe(libsbml.AST_TIMES);
+      expect(root.getNumChildren()).toEqual(2);
+      expect(root.getChild(0).getType()).toBe(libsbml.AST_NAME);
+      expect(root.getChild(1).getType()).toBe(libsbml.AST_NAME);
+
+      // test AST nodes with array wrappers
+      var root = model.reactions[0].getKineticLaw().getMath();
+      expect(root.getType()).toBe(libsbml.AST_TIMES);
+      expect(root.children.length).toEqual(2);
+      expect(root.children[0].getType()).toBe(libsbml.AST_NAME);
+      expect(root.children[0].getName()).toEqual('J0_k');
+      expect(root.children[1].getType()).toBe(libsbml.AST_NAME);
+      expect(root.children[1].getName()).toEqual('Node0');
+      // with a for-each
+      root.children.forEach(function(x) {
+        expect(x.getType()).toBe(libsbml.AST_NAME);
+      });
     });
   });
 
