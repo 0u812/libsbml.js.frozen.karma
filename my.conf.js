@@ -19,7 +19,7 @@ module.exports = function(config) {
       {pattern: 'libsbml.js', watched: true, served: true, included: true},
       {pattern: 'mem/libsbml.js.mem', watched: false, served: true, included: false},
       {pattern: 'libsbml-basic.js', watched: true, served: true, included: true},
-      {pattern: 'libsbml-repressilator.js', watched: true, served: true, included: true},
+//       {pattern: 'libsbml-repressilator.js', watched: true, served: true, included: true},
       {pattern: 'models/decayModel.xml', watched: false, served: true, included: false},
       {pattern: 'models/BIOMD0000000012.xml', watched: false, served: true, included: false}
     ],
@@ -66,8 +66,8 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-//     browsers: ['Firefox'],
-    browsers: ['Chrome'],
+    browsers: ['Firefox'],
+//     browsers: ['Chrome'],
 
     plugins: [
       'karma-firefox-launcher',

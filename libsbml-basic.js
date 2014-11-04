@@ -153,63 +153,67 @@ describe("Basic API tests for libsbml.js", function() {
 
 });
 
+var decayDoc;
 describe("Decay model test", function() {
   ready = false;
   // load the model asynchronously
   libsbml.load('models/decayModel.xml', function(result) {
-    doc = result.doc;
+    decayDoc = result.doc;
     ready = true;
   });
 
   it('loads SBML', function() {
+//     waits(1000);
+
     waitsFor(function() {
         return ready;
       }, 'the model to load', 10000);
+//     console.log('ready ' + String(ready));
 
     runs( function() {
       // read with no errors
-      expect(doc.getNumErrors()).toEqual(0);
+      expect(decayDoc.getNumErrors()).toEqual(0);
 
-      var model = doc.getModel();
-      expect(model.getNumReactions()).toEqual(1);
+      var decayModel = decayDoc.getModel();
+      expect(decayModel.getNumReactions()).toEqual(1);
 
       // test reaction id
-      expect(model.getReaction(0).getId()).toEqual('J0');
-      expect(model.reactions[0].getId()).toEqual('J0');
+      expect(decayModel.getReaction(0).getId()).toEqual('J0');
+      expect(decayModel.reactions[0].getId()).toEqual('J0');
 
       // test reactants / products
-      expect(model.reactions[0].getNumReactants()).toEqual(1);
-      expect(model.reactions[0].reactants.length).toEqual(1);
-      expect(model.reactions[0].getReactant(0).getSpecies()).toEqual('Node0');
-      expect(model.reactions[0].reactants[0].getSpecies()).toEqual('Node0');
+      expect(decayModel.reactions[0].getNumReactants()).toEqual(1);
+      expect(decayModel.reactions[0].reactants.length).toEqual(1);
+      expect(decayModel.reactions[0].getReactant(0).getSpecies()).toEqual('Node0');
+      expect(decayModel.reactions[0].reactants[0].getSpecies()).toEqual('Node0');
 
-      expect(model.reactions[0].getNumProducts()).toEqual(1);
-      expect(model.reactions[0].products.length).toEqual(1);
-      expect(model.reactions[0].getProduct(0).getSpecies()).toEqual('Node1');
-      expect(model.reactions[0].products[0].getSpecies()).toEqual('Node1');
+      expect(decayModel.reactions[0].getNumProducts()).toEqual(1);
+      expect(decayModel.reactions[0].products.length).toEqual(1);
+      expect(decayModel.reactions[0].getProduct(0).getSpecies()).toEqual('Node1');
+      expect(decayModel.reactions[0].products[0].getSpecies()).toEqual('Node1');
 
-      expect(model.reactions[0].getNumModifiers()).toEqual(0);
-      expect(model.reactions[0].modifiers.length).toEqual(0);
+      expect(decayModel.reactions[0].getNumModifiers()).toEqual(0);
+      expect(decayModel.reactions[0].modifiers.length).toEqual(0);
 
       // test species
-      expect(model.getNumSpecies()).toEqual(2);
-      expect(model.species.length).toEqual(2);
-      expect(model.species[0].getId()).toEqual('Node0');
-      expect(model.species[0].getCompartment()).toEqual('compartment');
-      expect(model.species[0].getInitialConcentration()).toEqual(10);
-      expect(model.species[1].getId()).toEqual('Node1');
-      expect(model.species[1].getCompartment()).toEqual('compartment');
-      expect(model.species[1].getInitialConcentration()).toEqual(0);
+      expect(decayModel.getNumSpecies()).toEqual(2);
+      expect(decayModel.species.length).toEqual(2);
+      expect(decayModel.species[0].getId()).toEqual('Node0');
+      expect(decayModel.species[0].getCompartment()).toEqual('compartment');
+      expect(decayModel.species[0].getInitialConcentration()).toEqual(10);
+      expect(decayModel.species[1].getId()).toEqual('Node1');
+      expect(decayModel.species[1].getCompartment()).toEqual('compartment');
+      expect(decayModel.species[1].getInitialConcentration()).toEqual(0);
 
       // test AST nodes with API
-      var root = model.reactions[0].getKineticLaw().getMath();
+      var root = decayModel.reactions[0].getKineticLaw().getMath();
       expect(root.getType()).toBe(libsbml.AST_TIMES);
       expect(root.getNumChildren()).toEqual(2);
       expect(root.getChild(0).getType()).toBe(libsbml.AST_NAME);
       expect(root.getChild(1).getType()).toBe(libsbml.AST_NAME);
 
       // test AST nodes with array wrappers
-      var root = model.reactions[0].getKineticLaw().getMath();
+      var root = decayModel.reactions[0].getKineticLaw().getMath();
       expect(root.getType()).toBe(libsbml.AST_TIMES);
       expect(root.children.length).toEqual(2);
       expect(root.children[0].getType()).toBe(libsbml.AST_NAME);
@@ -224,6 +228,6 @@ describe("Decay model test", function() {
   });
 
   it('cleans up resources', function() {
-    libsbml.destroy(doc);
+    libsbml.destroy(decayDoc);
   });
 });
