@@ -17,13 +17,14 @@ module.exports = function(config) {
     files: [
       {pattern: 'pre.js', watched: true, served: true, included: true},
       {pattern: 'libsbml.js', watched: true, served: true, included: true},
-      {pattern: 'libsbml.js.mem', watched: false, served: true, included: false},
+      {pattern: 'mem/libsbml.js.mem', watched: false, served: true, included: false},
       {pattern: 'libsbml-basic.js', watched: true, served: true, included: true},
       {pattern: 'models/decayModel.xml', watched: false, served: true, included: false}
     ],
 
     proxies: {
-      '/': '/base/'
+      '/': '/base/',
+      '/mem': '/base/mem'
     },
 
 
