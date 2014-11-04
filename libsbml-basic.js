@@ -174,6 +174,7 @@ describe("Decay model test", function() {
       expect(model.getNumReactions()).toEqual(1);
 
       // test reaction id
+      expect(model.getReaction(0).getId()).toEqual('J0');
       expect(model.reactions[0].getId()).toEqual('J0');
 
       // test reactants / products
@@ -189,6 +190,16 @@ describe("Decay model test", function() {
 
       expect(model.reactions[0].getNumModifiers()).toEqual(0);
       expect(model.reactions[0].modifiers.length).toEqual(0);
+
+      // test species
+      expect(model.getNumSpecies()).toEqual(2);
+      expect(model.species.length).toEqual(2);
+      expect(model.species[0].getId()).toEqual('Node0');
+      expect(model.species[0].getCompartment()).toEqual('compartment');
+      expect(model.species[0].getInitialConcentration()).toEqual(10);
+      expect(model.species[1].getId()).toEqual('Node1');
+      expect(model.species[1].getCompartment()).toEqual('compartment');
+      expect(model.species[1].getInitialConcentration()).toEqual(0);
 
       // test AST nodes with API
       var root = model.reactions[0].getKineticLaw().getMath();
