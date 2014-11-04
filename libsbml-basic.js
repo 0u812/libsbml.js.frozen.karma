@@ -187,6 +187,9 @@ describe("Decay model test", function() {
       expect(model.reactions[0].getProduct(0).getSpecies()).toEqual('Node1');
       expect(model.reactions[0].products[0].getSpecies()).toEqual('Node1');
 
+      expect(model.reactions[0].getNumModifiers()).toEqual(0);
+      expect(model.reactions[0].modifiers.length).toEqual(0);
+
       // test AST nodes with API
       var root = model.reactions[0].getKineticLaw().getMath();
       expect(root.getType()).toBe(libsbml.AST_TIMES);
