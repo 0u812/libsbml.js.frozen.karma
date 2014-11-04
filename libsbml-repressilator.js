@@ -1,8 +1,5 @@
 var doc2;
-var doneLoadingEmbeddedModel = false;
 var ready2 = false;
-
-Module["noExitRuntime"] = true;
 
 describe("Decay model test", function() {
   ready2 = false;
@@ -48,6 +45,6 @@ describe("Decay model test", function() {
   });
 
   it('cleans up resources', function() {
-    libsbml.destroy(doc);
+    libsbml.destroy(doc2);
   });
 });
