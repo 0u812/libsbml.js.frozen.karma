@@ -161,7 +161,7 @@ describe("Decay model test", function() {
     ready = true;
   });
 
-  it("loads raw SBML", function() {
+  it('loads SBML', function() {
     waitsFor(function() {
         return ready;
       }, 'the model to load', 10000);
@@ -175,6 +175,17 @@ describe("Decay model test", function() {
 
       // test reaction id
       expect(model.reactions[0].getId()).toEqual('J0');
+
+      // test reactants / products
+      expect(model.reactions[0].getNumReactants()).toEqual(1);
+      expect(model.reactions[0].reactants.length).toEqual(1);
+      expect(model.reactions[0].getReactant(0).getSpecies()).toEqual('Node0');
+      expect(model.reactions[0].reactants[0].getSpecies()).toEqual('Node0');
+
+      expect(model.reactions[0].getNumProducts()).toEqual(1);
+      expect(model.reactions[0].products.length).toEqual(1);
+      expect(model.reactions[0].getProduct(0).getSpecies()).toEqual('Node1');
+      expect(model.reactions[0].products[0].getSpecies()).toEqual('Node1');
 
       // test AST nodes with API
       var root = model.reactions[0].getKineticLaw().getMath();
