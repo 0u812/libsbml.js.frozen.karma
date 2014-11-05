@@ -36,11 +36,23 @@ describe("Decay model test", function() {
       expect(doc2.getModel().reactions[3].modifiers[0].getMetaId()).toEqual('_421064');
       expect(doc2.getModel().reactions[3].modifiers[0].isSetSBOTerm()).toEqual(true);
       expect(doc2.getModel().reactions[3].modifiers[0].getSBOTerm()).toEqual(461);
+      expect(doc2.getModel().reactions[3].modifiers[0].findSpecies().getId()).toEqual('X');
       // products
       expect(doc2.getModel().reactions[3].products.length).toEqual(1);
       expect(doc2.getModel().reactions[3].products[0].getSpecies()).toEqual('PX');
       expect(doc2.getModel().reactions[3].products[0].getMetaId()).toEqual('_421051');
       expect(doc2.getModel().reactions[3].products[0].isSetSBOTerm()).toEqual(false);
+      expect(doc2.getModel().reactions[3].products[0].findSpecies().getId()).toEqual('PX');
+      expect(doc2.getModel().reactions[3].products[0].findSpecies().isSetInitialAmount()).toEqual(true);
+      expect(doc2.getModel().reactions[3].products[0].findSpecies().isSetInitialConcentration()).toEqual(false);
+      expect(doc2.getModel().reactions[3].products[0].findSpecies().isSetHasOnlySubstanceUnits()).toEqual(true);
+      expect(doc2.getModel().reactions[3].products[0].findSpecies().getHasOnlySubstanceUnits()).toEqual(true);
+
+//       console.log('find spec');
+//       console.log(doc2.getModel().findSpecies('PX').getId());
+//       console.log(doc2.getModel().reactions[3].products[0].getModel().findSpecies('PX').getId());
+//       console.log(doc2.getModel().reactions[3].products[0].findSpecies().getId());
+//       console.log(doc2.getModel().reactions[3].modifiers[0].findSpecies().getId());
     });
   });
 
