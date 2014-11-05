@@ -21,6 +21,12 @@ describe("Decay model test", function() {
       // num reactions
       expect(doc2.getModel().reactions.length).toEqual(12);
 
+      expect(doc2.getModel().compartments.length).toEqual(1);
+      expect(doc2.getModel().compartments[0].getId()).toEqual('cell');
+      expect(doc2.getModel().compartments[0].getMetaId()).toEqual('_000002');
+      expect(doc2.getModel().compartments[0].getSBOTerm()).toEqual(290);
+      expect(doc2.getModel().compartments[0].getSize()).toEqual(1);
+
       // ** Reaction4 (has modifiers) **
       expect(doc2.getModel().reactions[3].getId()).toEqual('Reaction4');
       expect(doc2.getModel().reactions[3].getMetaId()).toEqual('_905882');
@@ -37,6 +43,7 @@ describe("Decay model test", function() {
       expect(doc2.getModel().reactions[3].modifiers[0].isSetSBOTerm()).toEqual(true);
       expect(doc2.getModel().reactions[3].modifiers[0].getSBOTerm()).toEqual(461);
       expect(doc2.getModel().reactions[3].modifiers[0].findSpecies().getId()).toEqual('X');
+      expect(doc2.getModel().reactions[3].modifiers[0].findSpecies().getCompartment()).toEqual('cell');
       // products
       expect(doc2.getModel().reactions[3].products.length).toEqual(1);
       expect(doc2.getModel().reactions[3].products[0].getSpecies()).toEqual('PX');
