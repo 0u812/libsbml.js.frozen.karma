@@ -60,6 +60,15 @@ describe("Decay model test", function() {
 //       console.log(doc2.getModel().reactions[3].products[0].getModel().findSpecies('PX').getId());
 //       console.log(doc2.getModel().reactions[3].products[0].findSpecies().getId());
 //       console.log(doc2.getModel().reactions[3].modifiers[0].findSpecies().getId());
+
+      // assignment rules
+      expect(doc2.getModel().getNumRules()).toEqual(9);
+      console.log(doc2.getModel().rules[0].getMetaId());
+      console.log(doc2.getModel().rules[0].isAssignment());
+      var asnrule = doc2.getModel().rules[0].asAssignmentRule();
+      doc2.getModel().rules.forEach(function(e) {
+        expect(e.isAssignment()).toEqual(true);
+      });
     });
   });
 
