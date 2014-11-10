@@ -65,8 +65,8 @@ describe("Repressilator model test", function() {
 
       // check properties
       expect(doc2.getModel().getNumRules()).toEqual(9);
-      console.log(doc2.getModel().rules[0].getMetaId());
-      console.log(doc2.getModel().rules[0].isAssignment());
+//       console.log(doc2.getModel().rules[0].getMetaId());
+//       console.log(doc2.getModel().rules[0].isAssignment());
       expect(doc2.getModel().rules[0].isAssignment()).toEqual(true);
       expect(doc2.getModel().rules[0].asAssignmentRule().getVariable()).toEqual('t_ave');
       expect(doc2.getModel().rules[0].asAssignmentRule().getMetaId()).toEqual('metaid_0500035');
