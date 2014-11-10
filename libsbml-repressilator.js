@@ -18,7 +18,7 @@ describe("Decay model test", function() {
       // read with no errors
       expect(doc2.getNumErrors()).toEqual(0);
 
-      // num reactions
+      // check reactions
       expect(doc2.getModel().reactions.length).toEqual(12);
 
       expect(doc2.getModel().compartments.length).toEqual(1);
@@ -61,11 +61,57 @@ describe("Decay model test", function() {
 //       console.log(doc2.getModel().reactions[3].products[0].findSpecies().getId());
 //       console.log(doc2.getModel().reactions[3].modifiers[0].findSpecies().getId());
 
-      // assignment rules
+      // ** Assignment rules **
+
+      // check properties
       expect(doc2.getModel().getNumRules()).toEqual(9);
       console.log(doc2.getModel().rules[0].getMetaId());
       console.log(doc2.getModel().rules[0].isAssignment());
-      var asnrule = doc2.getModel().rules[0].asAssignmentRule();
+      expect(doc2.getModel().rules[0].isAssignment()).toEqual(true);
+      expect(doc2.getModel().rules[0].asAssignmentRule().getVariable()).toEqual('t_ave');
+      expect(doc2.getModel().rules[0].asAssignmentRule().getMetaId()).toEqual('metaid_0500035');
+
+      // check AST
+      expect(doc2.getModel().rules[0].asAssignmentRule().getMath().getType()).toBe(libsbml.AST_DIVIDE);
+      expect(doc2.getModel().rules[0].asAssignmentRule().getMath().children.length).toEqual(2);
+      expect(doc2.getModel().rules[0].asAssignmentRule().getMath().children[0].getType()).toBe(libsbml.AST_NAME);
+      expect(doc2.getModel().rules[0].asAssignmentRule().getMath().children[0].getName()).toEqual('tau_mRNA');
+      expect(doc2.getModel().rules[0].asAssignmentRule().getMath().children[1].getType()).toBe(libsbml.AST_FUNCTION_LN);
+      expect(doc2.getModel().rules[0].asAssignmentRule().getMath().children[1].children.length).toEqual(1);
+      expect(doc2.getModel().rules[0].asAssignmentRule().getMath().children[1].children[0].getType()).toBe(libsbml.AST_REAL);
+
+      expect(doc2.getModel().rules[1].isAssignment()).toEqual(true);
+      expect(doc2.getModel().rules[1].asAssignmentRule().getVariable()).toEqual('beta');
+      expect(doc2.getModel().rules[1].asAssignmentRule().getMetaId()).toEqual('metaid_0240045');
+
+      expect(doc2.getModel().rules[2].isAssignment()).toEqual(true);
+      expect(doc2.getModel().rules[2].asAssignmentRule().getVariable()).toEqual('k_tl');
+      expect(doc2.getModel().rules[2].asAssignmentRule().getMetaId()).toEqual('metaid_0400235');
+
+      expect(doc2.getModel().rules[3].isAssignment()).toEqual(true);
+      expect(doc2.getModel().rules[3].asAssignmentRule().getVariable()).toEqual('a_tr');
+      expect(doc2.getModel().rules[3].asAssignmentRule().getMetaId()).toEqual('metaid_1000237');
+
+      expect(doc2.getModel().rules[4].isAssignment()).toEqual(true);
+      expect(doc2.getModel().rules[4].asAssignmentRule().getVariable()).toEqual('a0_tr');
+      expect(doc2.getModel().rules[4].asAssignmentRule().getMetaId()).toEqual('metaid_0100236');
+
+      expect(doc2.getModel().rules[5].isAssignment()).toEqual(true);
+      expect(doc2.getModel().rules[5].asAssignmentRule().getVariable()).toEqual('kd_prot');
+      expect(doc2.getModel().rules[5].asAssignmentRule().getMetaId()).toEqual('metaid_0010335');
+
+      expect(doc2.getModel().rules[6].isAssignment()).toEqual(true);
+      expect(doc2.getModel().rules[6].asAssignmentRule().getVariable()).toEqual('kd_mRNA');
+      expect(doc2.getModel().rules[6].asAssignmentRule().getMetaId()).toEqual('metaid_0020435');
+
+      expect(doc2.getModel().rules[7].isAssignment()).toEqual(true);
+      expect(doc2.getModel().rules[7].asAssignmentRule().getVariable()).toEqual('alpha');
+      expect(doc2.getModel().rules[7].asAssignmentRule().getMetaId()).toEqual('metaid_0230035');
+
+      expect(doc2.getModel().rules[8].isAssignment()).toEqual(true);
+      expect(doc2.getModel().rules[8].asAssignmentRule().getVariable()).toEqual('alpha0');
+      expect(doc2.getModel().rules[8].asAssignmentRule().getMetaId()).toEqual('metaid_0240035');
+
       doc2.getModel().rules.forEach(function(e) {
         expect(e.isAssignment()).toEqual(true);
       });
