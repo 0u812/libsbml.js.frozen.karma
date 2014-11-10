@@ -1,7 +1,7 @@
 var doc2;
 var ready2 = false;
 
-describe("Decay model test", function() {
+describe("Repressilator model test", function() {
   ready2 = false;
   // load the model asynchronously
   libsbml.load('models/BIOMD0000000012.xml', function(result) {
