@@ -87,6 +87,15 @@ describe("Basic layout test", function() {
       expect(layout3.specglyphs[layout3.specglyphs.length-1].getBoundingBox().width).toEqual(43);
       expect(layout3.specglyphs[layout3.specglyphs.length-1].getBoundingBox().height).toEqual(24);
       expect(layout3.specglyphs[layout3.specglyphs.length-1].getBoundingBox().depth).toEqual(0);
+
+      expect(layout3.rxnglyphs.length).toEqual(11);
+      expect(layout3.rxnglyphs[0].getId()).toEqual('rGlyph_0');
+      expect(layout3.rxnglyphs[0].getReactionId()).toEqual('J0');
+      // meaningless
+//       expect(layout3.rxnglyphs[0].getBoundingBox().width).toEqual(0);
+      expect(layout3.rxnglyphs[0].specref.length).toEqual(2);
+      expect(layout3.rxnglyphs[0].specref[0].isSetCurve()).toEqual(true);
+      expect(layout3.rxnglyphs[0].specref[0].getCurve().segments.length).toEqual(1);
     });
   });
 
