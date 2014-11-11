@@ -33,9 +33,10 @@ describe("Basic layout test", function() {
 //       doc3.plugins.forEach(function(x) {
 //         console.log(x.getPackageName());
 //       });
-      expect(doc3.hasPlugin('layout')).toEqual(true);
-      var layout3 = doc3.findPlugin('layout');
-      expect(layout3.getPackageName()).toEqual('layout');
+      expect(doc3.getModel().hasPlugin('layout')).toEqual(true);
+      var plugin3 = doc3.getModel().findPlugin('layout');
+      expect(plugin3.getPackageName()).toEqual('layout');
+      var layout3 = plugin3.asLayout();
     });
   });
 
