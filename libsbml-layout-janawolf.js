@@ -96,6 +96,31 @@ describe("Basic layout test", function() {
       expect(layout3.rxnglyphs[0].specref.length).toEqual(2);
       expect(layout3.rxnglyphs[0].specref[0].isSetCurve()).toEqual(true);
       expect(layout3.rxnglyphs[0].specref[0].getCurve().segments.length).toEqual(1);
+      expect(layout3.rxnglyphs[0].specref[0].getCurve().segments[0].isCubicBezier()).toEqual(true);
+      expect(layout3.rxnglyphs[0].specref[0].getCurve().segments[0].getStart().x()).toEqual(225);
+      expect(layout3.rxnglyphs[0].specref[0].getCurve().segments[0].getStart().y()).toEqual(85.4117647058823);
+      expect(layout3.rxnglyphs[0].specref[0].getCurve().segments[0].getEnd().x()).toEqual(273);
+      expect(layout3.rxnglyphs[0].specref[0].getCurve().segments[0].getEnd().y()).toEqual(94.2);
+      expect(layout3.rxnglyphs[0].specref[0].getCurve().segments[0].getBasePoint1().x()).toEqual(246);
+      expect(layout3.rxnglyphs[0].specref[0].getCurve().segments[0].getBasePoint1().y()).toEqual(91);
+      expect(layout3.rxnglyphs[0].specref[0].getCurve().segments[0].getBasePoint2().x()).toEqual(247);
+      expect(layout3.rxnglyphs[0].specref[0].getCurve().segments[0].getBasePoint2().y()).toEqual(92);
+
+      expect(layout3.rxnglyphs[layout3.rxnglyphs.length-1].getId()).toEqual('rGlyph_10');
+      expect(layout3.rxnglyphs[layout3.rxnglyphs.length-1].getReactionId()).toEqual('J10');
+      expect(layout3.rxnglyphs[layout3.rxnglyphs.length-1].specref.length).toEqual(2);
+      expect(layout3.rxnglyphs[layout3.rxnglyphs.length-1].specref[0].getId()).toEqual('SpeciesReference_J10_0');
+      expect(layout3.rxnglyphs[layout3.rxnglyphs.length-1].specref[0].isSetCurve()).toEqual(true);
+      expect(layout3.rxnglyphs[layout3.rxnglyphs.length-1].specref[0].getCurve().segments.length).toEqual(1);
+      expect(layout3.rxnglyphs[layout3.rxnglyphs.length-1].specref[0].getCurve().segments[0].isCubicBezier()).toEqual(true);
+      expect(layout3.rxnglyphs[layout3.rxnglyphs.length-1].specref[0].getCurve().segments[0].getStart().x()).toEqual(518.545454545455);
+      expect(layout3.rxnglyphs[layout3.rxnglyphs.length-1].specref[0].getCurve().segments[0].getStart().y()).toEqual(749);
+      expect(layout3.rxnglyphs[layout3.rxnglyphs.length-1].specref[0].getCurve().segments[0].getEnd().x()).toEqual(568);
+      expect(layout3.rxnglyphs[layout3.rxnglyphs.length-1].specref[0].getCurve().segments[0].getEnd().y()).toEqual(776.491525423729);
+      expect(layout3.rxnglyphs[layout3.rxnglyphs.length-1].specref[0].getCurve().segments[0].getBasePoint1().x()).toEqual(532);
+      expect(layout3.rxnglyphs[layout3.rxnglyphs.length-1].specref[0].getCurve().segments[0].getBasePoint1().y()).toEqual(756);
+      expect(layout3.rxnglyphs[layout3.rxnglyphs.length-1].specref[0].getCurve().segments[0].getBasePoint2().x()).toEqual(532);
+      expect(layout3.rxnglyphs[layout3.rxnglyphs.length-1].specref[0].getCurve().segments[0].getBasePoint2().y()).toEqual(756);
     });
   });
 
