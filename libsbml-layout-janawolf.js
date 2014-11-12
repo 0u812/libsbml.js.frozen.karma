@@ -41,6 +41,7 @@ describe("Basic layout test", function() {
 
       var layout3 = layoutplugin3.layouts[0];
 
+      // test species glyphs
       expect(layout3.compglyphs.length).toEqual(0);
       expect(layout3.specglyphs.length).toEqual(23);
       expect(layout3.specglyphs[0].getId()).toEqual('sGlyph_0');
@@ -88,6 +89,7 @@ describe("Basic layout test", function() {
       expect(layout3.specglyphs[layout3.specglyphs.length-1].getBoundingBox().height).toEqual(24);
       expect(layout3.specglyphs[layout3.specglyphs.length-1].getBoundingBox().depth).toEqual(0);
 
+      // test reaction glyphs
       expect(layout3.rxnglyphs.length).toEqual(11);
       expect(layout3.rxnglyphs[0].getId()).toEqual('rGlyph_0');
       expect(layout3.rxnglyphs[0].getReactionId()).toEqual('J0');
@@ -121,6 +123,14 @@ describe("Basic layout test", function() {
       expect(layout3.rxnglyphs[layout3.rxnglyphs.length-1].specref[0].getCurve().segments[0].getBasePoint1().y()).toEqual(756);
       expect(layout3.rxnglyphs[layout3.rxnglyphs.length-1].specref[0].getCurve().segments[0].getBasePoint2().x()).toEqual(532);
       expect(layout3.rxnglyphs[layout3.rxnglyphs.length-1].specref[0].getCurve().segments[0].getBasePoint2().y()).toEqual(756);
+
+      // test text glyphs
+      expect(layout3.txtglyphs.length).toEqual(23);
+
+      expect(layout3.txtglyphs[0].getBoundingBox().x).toEqual(280);
+      expect(layout3.txtglyphs[0].getBoundingBox().y).toEqual(84);
+      expect(layout3.txtglyphs[0].getBoundingBox().width).toEqual(54);
+      expect(layout3.txtglyphs[0].getBoundingBox().height).toEqual(24);
     });
   });
 
