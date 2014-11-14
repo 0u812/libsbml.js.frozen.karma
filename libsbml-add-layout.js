@@ -51,8 +51,19 @@ describe("Basic layout test", function() {
 
       expect(doc4.getModel().hasPlugin('layout')).toEqual(true);
 
-      var plugin4 = doc4.getModel().findPlugin('layout');
+      var plugin4 = doc4.getModel().findPlugin('layout').asLayout();
 
+      var layoutns4 = new libsbml.LayoutPkgNamespaces(doc4.getLevel(), doc4.getVersion());
+      var layout4 = plugin4.createLayout();
+
+      layout4.setId('Layout_1');
+      var dim4 = new libsbml.Dimensions(layoutns4, 400., 220., 0.);
+      layout4.setDimensions(dim4);
+
+      var writer4 = new libsbml.SBMLWriter();
+      var serialized4 = writer4.writeSBMLToString(doc4);
+//       console.log('reserialized:');
+//       console.log(serialized4);
     });
   });
 
