@@ -38,6 +38,21 @@ describe("Basic layout test", function() {
       }
 
       expect(doc4.isPackageEnabled('layout')).toEqual(false);
+
+      // enable the layout extension as if starting from scratch
+      // following (addLayout.cpp)
+      if (doc4.getLevel() == 2) {
+        doc4.enablePackage(libsbml.LayoutExtension.getXmlnsL2(), 'layout', true);
+      } else if (doc4.getLevel() == 3) {
+        doc4.enablePackage(libsbml.LayoutExtension.getXmlnsL3V1V1(), 'layout', true);
+      }
+
+      expect(doc4.isPackageEnabled('layout')).toEqual(true);
+
+      expect(doc4.getModel().hasPlugin('layout')).toEqual(true);
+
+      var plugin4 = doc4.getModel().findPlugin('layout');
+
     });
   });
 
