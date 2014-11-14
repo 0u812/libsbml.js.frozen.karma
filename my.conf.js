@@ -21,6 +21,7 @@ module.exports = function(config) {
       {pattern: 'libsbml-basic.js', watched: true, served: true, included: true},
       {pattern: 'libsbml-repressilator.js', watched: true, served: true, included: true},
       {pattern: 'libsbml-layout-janawolf.js', watched: true, served: true, included: true},
+      {pattern: 'libsbml-add-layout.js', watched: true, served: true, included: true},
       {pattern: 'models/decayModel.xml', watched: false, served: true, included: false},
       {pattern: 'models/BIOMD0000000012.xml', watched: false, served: true, included: false},
       {pattern: 'models/GlycolysisOriginal.xml', watched: false, served: true, included: false},
