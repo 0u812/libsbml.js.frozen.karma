@@ -24,7 +24,20 @@ describe("Basic layout test", function() {
       // check reactions
       expect(doc4.getModel().reactions.length).toEqual(5);
 
+      // check layout package
+      expect(doc4.isPackageEnabled('layout')).toEqual(true);
 
+      expect(doc4.getLevel()).not.toBeLessThan(2);
+      expect(doc4.getLevel()).not.toBeGreaterThan(3);
+
+      // disable it so we can go through the paces
+      if (doc4.getLevel() == 2) {
+        doc4.disablePackage(libsbml.LayoutExtension.getXmlnsL2(), 'layout');
+      } else if (doc4.getLevel() == 3) {
+        doc4.disablePackage(libsbml.LayoutExtension.getXmlnsL3V1V1(), 'layout');
+      }
+
+      expect(doc4.isPackageEnabled('layout')).toEqual(false);
     });
   });
 
