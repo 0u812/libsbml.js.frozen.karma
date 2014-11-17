@@ -89,6 +89,9 @@ describe("Round-trip", function() {
       expect(plugin5.getNumLayouts()).toEqual(1);
 
       var layout5 = plugin5.getLayout(0);
+
+      expect(layout5.getDimensions().getWidth()).toEqual(400.);
+      expect(layout5.getDimensions().getHeight()).toEqual(220.);
     });
   });
 
