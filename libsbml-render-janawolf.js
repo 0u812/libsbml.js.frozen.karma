@@ -31,11 +31,19 @@ describe("Test of import coverage", function() {
 
       expect(doc6.getModel().hasPlugin('layout')).toEqual(true);
       var lplugin6 = doc6.getModel().findPlugin('layout');
+      expect(lplugin6).not.toEqual(Module.NULL);
       expect(lplugin6.getPackageName()).toEqual('layout');
       var layoutlplugin6 = lplugin6.asLayout();
       expect(layoutlplugin6.layouts.length).toEqual(1);
 
       var layout6 = layoutlplugin6.layouts[0];
+
+      var list_of_layouts6 = layoutlplugin6.getListOfLayouts();
+      var rplugin6 = list_of_layouts6.getPlugin('render');
+//       expect(rplugin6).toEqual(Module.NULL);
+      console.log(rplugin6.ptr);
+      expect(rplugin6.getPackageName()).toEqual('render');
+      var lol6 = rplugin6.asRenderListOfLayoutsPlugin();
     });
   });
 
