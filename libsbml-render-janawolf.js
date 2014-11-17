@@ -54,6 +54,11 @@ describe("Test of import coverage", function() {
       expect(layout_render6.getNumLocalRenderInformationObjects()).toEqual(1);
 
       var render_info6 = layout_render6.getRenderInformation(0);
+
+      expect(render_info6.getId()).toEqual('ConvertedRenderStyle');
+      expect(render_info6.getName()).toEqual('');
+      expect(render_info6.getProgramVersion()).toEqual('2.7.5121.21120 Compiled on: 1/9/2014 11:44:00 AM');
+      expect(render_info6.getBackgroundColor()).toEqual('#FFFFFFFF');
     });
   });
 
