@@ -1,7 +1,9 @@
 var doc4;
 var ready4 = false;
+var serialized4;
+var doc5;
 
-describe("Basic layout test", function() {
+describe("Round-trip", function() {
   ready4 = false;
   // load the model asynchronously
   libsbml.load('models/twocompsys-ex.xml', function(result) {
@@ -61,7 +63,7 @@ describe("Basic layout test", function() {
       layout4.setDimensions(dim4);
 
       var writer4 = new libsbml.SBMLWriter();
-      var serialized4 = writer4.writeSBMLToString(doc4);
+      serialized4 = writer4.writeSBMLToString(doc4);
 //       console.log('reserialized:');
 //       console.log(serialized4);
     });
@@ -69,5 +71,28 @@ describe("Basic layout test", function() {
 
   it('cleans up resources', function() {
     libsbml.destroy(doc4);
+  });
+
+  it('round-trips SBML', function () {
+    runs( function() {
+      doc5 = reader.readSBMLFromString(serialized4);
+
+      // check reactions
+      expect(doc5.getModel().reactions.length).toEqual(5);
+
+      // check layout package
+      expect(doc5.isPackageEnabled('layout')).toEqual(true);
+
+      var plugin5 = doc5.getModel().findPlugin('layout').asLayout();
+
+      // check num layouts
+      expect(plugin5.getNumLayouts()).toEqual(1);
+
+      var layout5 = plugin5.getLayout(0);
+    });
+  });
+
+  it('cleans up resources', function() {
+    libsbml.destroy(doc5);
   });
 });

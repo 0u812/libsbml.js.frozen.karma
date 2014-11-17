@@ -1,7 +1,7 @@
 var doc3;
 var ready3 = false;
 
-describe("Basic layout test", function() {
+describe("Test of import coverage", function() {
   ready3 = false;
   // load the model asynchronously
   libsbml.load('models/GlycolysisOriginal.xml', function(result) {
