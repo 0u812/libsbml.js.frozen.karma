@@ -59,6 +59,15 @@ describe("Test of import coverage", function() {
       expect(render_info6.getName()).toEqual('');
       expect(render_info6.getProgramVersion()).toEqual('2.7.5121.21120 Compiled on: 1/9/2014 11:44:00 AM');
       expect(render_info6.getBackgroundColor()).toEqual('#FFFFFFFF');
+
+      // test color definitions
+      expect(render_info6.colors.length).toEqual(8);
+      expect(render_info6.colors[0].getId()).toEqual('Color_0');
+      expect(render_info6.colors[0].createValueString()).toEqual('#969696');
+      expect(render_info6.colors[1].getId()).toEqual('Color_1');
+      expect(render_info6.colors[1].createValueString()).toEqual('#ff7faa');
+      expect(render_info6.colors[7].getId()).toEqual('Color_7');
+      expect(render_info6.colors[7].createValueString()).toEqual('#ff9900');
     });
   });
 
