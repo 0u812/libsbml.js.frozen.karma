@@ -55,12 +55,28 @@ describe("Round-trip", function() {
 
       var plugin4 = doc4.getModel().findPlugin('layout').asLayout();
 
+      // create layout
       var layoutns4 = new libsbml.LayoutPkgNamespaces(doc4.getLevel(), doc4.getVersion());
       var layout4 = plugin4.createLayout();
 
       layout4.setId('Layout_1');
       var dim4 = new libsbml.Dimensions(layoutns4, 400., 220., 0.);
       layout4.setDimensions(dim4);
+
+      // create species glyphs
+      expect(layout4.getNumSpeciesGlyphs()).toEqual(0);
+
+      var specglyph = layout4.createSpeciesGlyph();
+      specglyph.setId(doc4.getModel().species[0].getId() + '_sglyph');
+      specglyph.setSpeciesId(doc4.getModel().species[0].getId());
+      specglyph.getBoundingBox().getDimensions().setWidth(40);
+      specglyph.getBoundingBox().getDimensions().setHeight(20);
+
+      var specglyph = layout4.createSpeciesGlyph();
+      specglyph.setId(doc4.getModel().species[1].getId() + '_sglyph');
+      specglyph.setSpeciesId(doc4.getModel().species[1].getId());
+      specglyph.getBoundingBox().getDimensions().setWidth(42);
+      specglyph.getBoundingBox().getDimensions().setHeight(38);
 
       var writer4 = new libsbml.SBMLWriter();
       serialized4 = writer4.writeSBMLToString(doc4);
@@ -92,6 +108,19 @@ describe("Round-trip", function() {
 
       expect(layout5.getDimensions().getWidth()).toEqual(400.);
       expect(layout5.getDimensions().getHeight()).toEqual(220.);
+
+      // test species glyphs
+      expect(layout5.getNumSpeciesGlyphs()).toEqual(2);
+
+      expect(layout5.specglyphs[0].getId()).toEqual(doc5.getModel().species[0].getId() + '_sglyph');
+      expect(layout5.specglyphs[0].getSpeciesId()).toEqual(doc5.getModel().species[0].getId());
+      expect(layout5.specglyphs[0].getBoundingBox().getDimensions().getWidth()).toEqual(40);
+      expect(layout5.specglyphs[0].getBoundingBox().getDimensions().getHeight()).toEqual(20);
+
+      expect(layout5.specglyphs[1].getId()).toEqual(doc5.getModel().species[1].getId() + '_sglyph');
+      expect(layout5.specglyphs[1].getSpeciesId()).toEqual(doc5.getModel().species[1].getId());
+      expect(layout5.specglyphs[1].getBoundingBox().getDimensions().getWidth()).toEqual(42);
+      expect(layout5.specglyphs[1].getBoundingBox().getDimensions().getHeight()).toEqual(38);
     });
   });
 
