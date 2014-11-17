@@ -39,11 +39,21 @@ describe("Test of import coverage", function() {
       var layout6 = layoutlplugin6.layouts[0];
 
       var list_of_layouts6 = layoutlplugin6.getListOfLayouts();
-      var rplugin6 = list_of_layouts6.getPlugin('render');
-//       expect(rplugin6).toEqual(Module.NULL);
-      console.log(rplugin6.ptr);
+      var rgplugin6 = list_of_layouts6.getPlugin('render');
+
+      expect(rgplugin6.getPackageName()).toEqual('render');
+      var lol6 = rgplugin6.asRenderListOfLayoutsPlugin();
+
+      // render info is local in this model
+      expect(lol6.getNumGlobalRenderInformationObjects()).toEqual(0);
+
+      var rplugin6 = layout6.getPlugin('render');
       expect(rplugin6.getPackageName()).toEqual('render');
-      var lol6 = rplugin6.asRenderListOfLayoutsPlugin();
+      var layout_render6 = rplugin6.asRenderLayoutPlugin();
+
+      expect(layout_render6.getNumLocalRenderInformationObjects()).toEqual(1);
+
+      var render_info6 = layout_render6.getRenderInformation(0);
     });
   });
 
