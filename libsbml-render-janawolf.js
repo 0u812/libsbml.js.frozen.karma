@@ -68,6 +68,27 @@ describe("Test of import coverage", function() {
       expect(render_info6.colors[1].createValueString()).toEqual('#ff7faa');
       expect(render_info6.colors[7].getId()).toEqual('Color_7');
       expect(render_info6.colors[7].createValueString()).toEqual('#ff9900');
+
+      expect(render_info6.gradients.length).toEqual(1);
+
+      expect(render_info6.gradients[0].getId()).toEqual('LinearGradient_0');
+      expect(render_info6.gradients[0].getXPoint1().a).toEqual(0);
+      expect(render_info6.gradients[0].getXPoint1().r).toEqual(0);
+
+      expect(render_info6.gradients[0].getYPoint1().a).toEqual(0);
+      expect(render_info6.gradients[0].getYPoint1().r).toEqual(0);
+
+      expect(render_info6.gradients[0].getZPoint1().a).toEqual(0);
+      expect(render_info6.gradients[0].getZPoint1().r).toEqual(0);
+
+      expect(render_info6.gradients[0].getXPoint2().a).toEqual(0);
+      expect(render_info6.gradients[0].getXPoint2().r).toEqual(100);
+
+      expect(render_info6.gradients[0].getYPoint2().a).toEqual(0);
+      expect(render_info6.gradients[0].getYPoint2().r).toEqual(0);
+
+      expect(render_info6.gradients[0].getZPoint2().a).toEqual(0);
+      expect(render_info6.gradients[0].getZPoint2().r).toEqual(100);
     });
   });
 
