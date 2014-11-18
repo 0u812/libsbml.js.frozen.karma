@@ -89,6 +89,12 @@ describe("Test of import coverage", function() {
 
       expect(render_info6.gradients[0].getZPoint2().a).toEqual(0);
       expect(render_info6.gradients[0].getZPoint2().r).toEqual(100);
+
+      // test stops
+      expect(render_info6.gradients[0].stops.length).toEqual(2);
+
+      expect(render_info6.gradients[0].stops[0].getStopColor()).toEqual('#ccffff');
+      expect(render_info6.gradients[0].stops[1].getStopColor()).toEqual('#ffffff');
     });
   });
 
