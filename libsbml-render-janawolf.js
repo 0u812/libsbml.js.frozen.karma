@@ -95,6 +95,10 @@ describe("Test of import coverage", function() {
 
       expect(render_info6.gradients[0].stops[0].getStopColor()).toEqual('#ccffff');
       expect(render_info6.gradients[0].stops[1].getStopColor()).toEqual('#ffffff');
+
+      // test line endings
+      expect(render_info6.lineendings.length).toEqual(2);
+
     });
   });
 
