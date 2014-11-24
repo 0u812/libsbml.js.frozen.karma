@@ -1,7 +1,7 @@
 var doc6;
 var ready6 = false;
 
-describe("Test of import coverage", function() {
+describe("Test render DOM", function() {
   ready6 = false;
   // load the model asynchronously
   libsbml.load('models/GlycolysisOriginal.xml', function(result) {
@@ -98,6 +98,12 @@ describe("Test of import coverage", function() {
 
       // test line endings
       expect(render_info6.lineendings.length).toEqual(2);
+      
+      expect(render_info6.lineendings[0].getId()).toEqual('product');
+      expect(render_info6.lineendings[0].getBoundingBox().width).toEqual(10);
+      expect(render_info6.lineendings[0].getBoundingBox().height).toEqual(10);
+      expect(render_info6.lineendings[0].getBoundingBox().x).toEqual(-10);
+      expect(render_info6.lineendings[0].getBoundingBox().y).toEqual(-5);
 
     });
   });
