@@ -104,6 +104,8 @@ describe("Test render DOM", function() {
       expect(render_info6.lineendings[0].getBoundingBox().height).toEqual(10);
       expect(render_info6.lineendings[0].getBoundingBox().x).toEqual(-10);
       expect(render_info6.lineendings[0].getBoundingBox().y).toEqual(-5);
+      
+      expect(render_info6.lineendings[0].getGroup().polygons.length).toEqual(1);
 
     });
   });
