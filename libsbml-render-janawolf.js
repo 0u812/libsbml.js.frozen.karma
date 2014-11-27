@@ -106,7 +106,33 @@ describe("Test render DOM", function() {
       expect(render_info6.lineendings[0].getBoundingBox().y).toEqual(-5);
       
       expect(render_info6.lineendings[0].getGroup().polygons.length).toEqual(1);
+      expect(render_info6.lineendings[0].getGroup().polygons[0].getNumElements()).toEqual(5);
 
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements.length).toEqual(5);
+      
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[0].isBezier()).toEqual(false);
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[0].x().getAbsoluteValue()).toEqual(0);
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[0].y().getAbsoluteValue()).toEqual(0);
+      
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[1].x().getAbsoluteValue()).toEqual(0);
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[1].y().getAbsoluteValue()).toEqual(0);
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[1].x().getRelativeValue()).toEqual(100);
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[1].y().getRelativeValue()).toEqual(50);
+      
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[2].x().getAbsoluteValue()).toEqual(0);
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[2].y().getAbsoluteValue()).toEqual(0);
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[2].x().getRelativeValue()).toEqual(0);
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[2].y().getRelativeValue()).toEqual(100);
+      
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[3].x().getAbsoluteValue()).toEqual(0);
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[3].y().getAbsoluteValue()).toEqual(0);
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[3].x().getRelativeValue()).toEqual(33);
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[3].y().getRelativeValue()).toEqual(50);
+      
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[4].x().getAbsoluteValue()).toEqual(0);
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[4].y().getAbsoluteValue()).toEqual(0);
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[4].x().getRelativeValue()).toEqual(0);
+      expect(render_info6.lineendings[0].getGroup().polygons[0].elements[4].y().getRelativeValue()).toEqual(0);
     });
   });
 
