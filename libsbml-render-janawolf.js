@@ -133,6 +133,14 @@ describe("Test render DOM", function() {
       expect(render_info6.lineendings[0].getGroup().polygons[0].elements[4].y().getAbsoluteValue()).toEqual(0);
       expect(render_info6.lineendings[0].getGroup().polygons[0].elements[4].x().getRelativeValue()).toEqual(0);
       expect(render_info6.lineendings[0].getGroup().polygons[0].elements[4].y().getRelativeValue()).toEqual(0);
+
+      // test styles
+      expect(render_info6.styles.length).toEqual(19);
+
+      expect(render_info6.styles[0].getNumIds()).toEqual(1);
+      expect(render_info6.styles[0].isInIdList('sGlyph_0')).toEqual(true);
+
+      expect(render_info6.styles[0].getGroup().rectangles.length).toEqual(1);
     });
   });
 
