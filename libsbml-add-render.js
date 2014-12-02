@@ -83,6 +83,16 @@ describe("Add render information", function() {
       lingrad7.setPoint1(new libsbml.RelAbsVector(), new libsbml.RelAbsVector());
       lingrad7.setPoint2(new libsbml.RelAbsVector(0, 100), new libsbml.RelAbsVector(0, 100));
 
+      // create white color stop
+      var stop7white = lingrad7.createGradientStop();
+      stop7white.setOffset(0,0);
+      stop7white.setStopColor('white');
+
+      // create silver color stop
+      var stop7silver = lingrad7.createGradientStop();
+      stop7silver.setOffset(0, 100);
+      stop7silver.setStopColor('silver');
+
       var writer7 = new libsbml.SBMLWriter();
       serialized7 = writer7.writeSBMLToString(doc7);
 //       console.log('reserialized:');
@@ -150,6 +160,17 @@ describe("Add render information", function() {
       expect(Math.abs(render_info8.gradients[0].getYPoint2().a)-0).toBeLessThan(1e-6);
       expect(Math.abs(render_info8.gradients[0].getZPoint2().r)-0).toBeLessThan(1e-6);
       expect(Math.abs(render_info8.gradients[0].getZPoint2().a)-0).toBeLessThan(1e-6);
+
+      // test stops
+      expect(render_info8.gradients[0].stops.length).toEqual(2);
+
+      expect(render_info8.gradients[0].stops[0].getStopColor()).toEqual('white');
+      expect(render_info8.gradients[0].stops[0].getOffset().r).toEqual(0);
+      expect(render_info8.gradients[0].stops[0].getOffset().a).toEqual(0);
+
+      expect(render_info8.gradients[0].stops[1].getStopColor()).toEqual('silver');
+      expect(render_info8.gradients[0].stops[1].getOffset().r).toEqual(100);
+      expect(render_info8.gradients[0].stops[1].getOffset().a).toEqual(0);
     });
   });
 
