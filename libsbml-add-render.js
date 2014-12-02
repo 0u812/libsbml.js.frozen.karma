@@ -64,6 +64,7 @@ describe("Add render information", function() {
       rinfo7.setProgramName('libsbml.js');
       rinfo7.setProgramVersion('0.1.2');
 
+      // add a color def
       var color7 = rinfo7.createColorDefinition();
       color7.setId('black');
       color7.setColorValue('#000000');
@@ -104,6 +105,15 @@ describe("Add render information", function() {
 
       var render_info8 = layout_render8.getRenderInformation(0);
       expect(render_info8.getId()).toEqual('render_info');
+      expect(render_info8.getName()).toEqual('Example Render Information');
+      expect(render_info8.getProgramName()).toEqual('libsbml.js');
+      expect(render_info8.getProgramVersion()).toEqual('0.1.2');
+
+      // test color def
+      expect(render_info8.colors.length).toEqual(1);
+
+      expect(render_info8.colors[0].getId()).toEqual('black');
+      expect(render_info8.colors[0].createValueString()).toEqual('#000000');
     });
   });
 
