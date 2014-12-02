@@ -62,7 +62,7 @@ describe("Add render information", function() {
       rinfo7.setId('render_info');
       rinfo7.setName('Example Render Information');
       rinfo7.setProgramName('libsbml.js');
-      rinfo7.setProgramVersion('0.1.3');
+      rinfo7.setProgramVersion('0.1.4');
 
       // add color defs
       var black7 = rinfo7.createColorDefinition();
@@ -92,6 +92,14 @@ describe("Add render information", function() {
       var stop7silver = lingrad7.createGradientStop();
       stop7silver.setOffset(0, 100);
       stop7silver.setStopColor('silver');
+
+      // create a render style
+      var style7 = rinfo7.createStyle('ellipseStyle');
+      var sgroup7 = style7.getGroup();
+      sgroup7.setFillColor('simpleGradient');
+      sgroup7.setStroke('black');
+      sgroup7.setStrokeWidth(2.0);
+      style7.addType('SPECIESGLYPH');
 
       var writer7 = new libsbml.SBMLWriter();
       serialized7 = writer7.writeSBMLToString(doc7);
@@ -131,7 +139,7 @@ describe("Add render information", function() {
       expect(render_info8.getId()).toEqual('render_info');
       expect(render_info8.getName()).toEqual('Example Render Information');
       expect(render_info8.getProgramName()).toEqual('libsbml.js');
-      expect(render_info8.getProgramVersion()).toEqual('0.1.3');
+      expect(render_info8.getProgramVersion()).toEqual('0.1.4');
 
       // test color def
       expect(render_info8.colors.length).toEqual(3);
