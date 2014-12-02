@@ -58,10 +58,47 @@ describe("Add render information", function() {
       var layout_render7 = rplugin7.asRenderLayoutPlugin();
 
       var rinfo7 = layout_render7.createLocalRenderInformation();
+
+      rinfo7.setId('info');
+      rinfo7.setName('Example Render Information');
+      rinfo7.setProgramName('libsbml.js');
+      rinfo7.setProgramVersion('0.1.2');
+
+      var color7 = rinfo7.createColorDefinition();
+      color7.setId('black');
+      color7.setColorValue('#000000');
+
+      var writer7 = new libsbml.SBMLWriter();
+      serialized7 = writer7.writeSBMLToString(doc7);
+      console.log('reserialized:');
+      console.log(serialized7);
     });
   });
 
   it('cleans up resources', function() {
     libsbml.destroy(doc7);
+  });
+
+  it('round-trips SBML', function () {
+    runs( function() {
+      doc8 = reader.readSBMLFromString(serialized7);
+
+      // check reactions
+      expect(doc8.getModel().reactions.length).toEqual(5);
+
+      // check layout package
+      expect(doc8.isPackageEnabled('layout')).toEqual(true);
+
+      var plugin5 = doc8.getModel().findPlugin('layout').asLayout();
+
+      // check num layouts
+      expect(plugin5.getNumLayouts()).toEqual(1);
+
+      var layout5 = plugin5.getLayout(0);
+    });
+  });
+
+  it('cleans up resources', function() {
+    libsbml.destroy(doc8);
   });
 });
