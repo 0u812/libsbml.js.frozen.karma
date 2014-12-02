@@ -64,15 +64,28 @@ describe("Add render information", function() {
       rinfo7.setProgramName('libsbml.js');
       rinfo7.setProgramVersion('0.1.2');
 
-      // add a color def
-      var color7 = rinfo7.createColorDefinition();
-      color7.setId('black');
-      color7.setColorValue('#000000');
+      // add color defs
+      var black7 = rinfo7.createColorDefinition();
+      black7.setId('black');
+      black7.setColorValue('#000000');
+
+      var silver7 = rinfo7.createColorDefinition();
+      silver7.setId('silver');
+      silver7.setColorValue('#c0c0c0');
+
+      var white7 = rinfo7.createColorDefinition();
+      white7.setId('white');
+      white7.setColorValue('#FFFFFF');
+
+      // add a gradient
+      var lingrad7 = rinfo7.createLinearGradientDefinition();
+      lingrad7.setId('simpleGradient');
+      lingrad7.setPoint1(libsbml.RelAbsVector(), libsbml.RelAbsVector());
 
       var writer7 = new libsbml.SBMLWriter();
       serialized7 = writer7.writeSBMLToString(doc7);
-      console.log('reserialized:');
-      console.log(serialized7);
+//       console.log('reserialized:');
+//       console.log(serialized7);
     });
   });
 
@@ -110,10 +123,25 @@ describe("Add render information", function() {
       expect(render_info8.getProgramVersion()).toEqual('0.1.2');
 
       // test color def
-      expect(render_info8.colors.length).toEqual(1);
+      expect(render_info8.colors.length).toEqual(3);
 
       expect(render_info8.colors[0].getId()).toEqual('black');
       expect(render_info8.colors[0].createValueString()).toEqual('#000000');
+
+      expect(render_info8.colors[1].getId()).toEqual('silver');
+      expect(render_info8.colors[1].createValueString()).toEqual('#c0c0c0');
+
+      expect(render_info8.colors[2].getId()).toEqual('white');
+      expect(render_info8.colors[2].createValueString()).toEqual('#ffffff');
+
+      // test gradient def
+      expect(render_info8.gradients[0].getId()).toEqual('simpleGradient');
+      expect(Math.abs(render_info8.gradients[0].getXPoint1().r-0)).toBeLessThan(1e-6);
+      expect(Math.abs(render_info8.gradients[0].getXPoint1().a)-0).toBeLessThan(1e-6);
+      expect(Math.abs(render_info8.gradients[0].getYPoint1().r)-0).toBeLessThan(1e-6);
+      expect(Math.abs(render_info8.gradients[0].getYPoint1().a)-0).toBeLessThan(1e-6);
+      expect(Math.abs(render_info8.gradients[0].getZPoint1().r)-0).toBeLessThan(1e-6);
+      expect(Math.abs(render_info8.gradients[0].getZPoint1().a)-0).toBeLessThan(1e-6);
     });
   });
 
