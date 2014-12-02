@@ -1,7 +1,7 @@
 var doc7;
 var ready7 = false;
 
-describe("Test render DOM", function() {
+describe("Add render information", function() {
   ready7 = false;
   // load the model asynchronously
   libsbml.load('models/twocompsys-ex-with-layout-written.xml', function(result) {
@@ -44,7 +44,20 @@ describe("Test render DOM", function() {
 
       var layout7 = layoutlplugin7.layouts[0];
 
+      if(doc.getLevel() == 2) {
+        doc7.enablePackage(libsbml.RenderExtension.getXmlnsL2(), 'render', true);
+      } else {
+        doc7.enablePackage(libsbml.RenderExtension.getXmlnsL3V1V1(), 'render', true);
+      }
+
+      doc7.setPackageRequired('render', false);
+
+      // get the render plugin
       var rplugin7 = layout7.getPlugin('render');
+      console.log(rplugin7.ptr)
+      var layout_render7 = rplugin7.asRenderLayoutPlugin();
+
+      var rinfo7 = layout_render7.createLocalRenderInformation();
     });
   });
 
