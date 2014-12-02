@@ -54,12 +54,12 @@ describe("Add render information", function() {
 
       // get the render plugin
       var rplugin7 = layout7.getPlugin('render');
-      console.log(rplugin7.ptr)
+//       console.log(rplugin7.ptr)
       var layout_render7 = rplugin7.asRenderLayoutPlugin();
 
       var rinfo7 = layout_render7.createLocalRenderInformation();
 
-      rinfo7.setId('info');
+      rinfo7.setId('render_info');
       rinfo7.setName('Example Render Information');
       rinfo7.setProgramName('libsbml.js');
       rinfo7.setProgramVersion('0.1.2');
@@ -89,12 +89,21 @@ describe("Add render information", function() {
       // check layout package
       expect(doc8.isPackageEnabled('layout')).toEqual(true);
 
-      var plugin5 = doc8.getModel().findPlugin('layout').asLayout();
+      var plugin8 = doc8.getModel().findPlugin('layout').asLayout();
 
       // check num layouts
-      expect(plugin5.getNumLayouts()).toEqual(1);
+      expect(plugin8.getNumLayouts()).toEqual(1);
 
-      var layout5 = plugin5.getLayout(0);
+      var layout8 = plugin8.getLayout(0);
+
+      var rplugin8 = layout8.getPlugin('render');
+//       console.log(rplugin8.ptr)
+      var layout_render8 = rplugin8.asRenderLayoutPlugin();
+
+      expect(layout_render8.getNumLocalRenderInformationObjects()).toEqual(1);
+
+      var render_info8 = layout_render8.getRenderInformation(0);
+      expect(render_info8.getId()).toEqual('render_info');
     });
   });
 
